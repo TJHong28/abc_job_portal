@@ -1,10 +1,13 @@
 package com.example.abc_job_portal;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,16 +51,25 @@ public class AbcJobPortalApplication extends SpringBootServletInitializer {
 			public String getThankYouPage() {
 				return "thank";
 			}
+			
+			@GetMapping("/dashboard")
+			public String getDashboardPage(Model model) {
+				List<User> users = userService.retrieveAllUserProfile();
+				model.addAttribute("users", users);
+				
+				return "dashboard";
+			}
+			
 			@PostMapping("/process_signup")
-		    public String registerNewUser(@ModelAttribute("user") User user) {
-		        userService.saveUser(user);
-
-		        System.out.println(user.getUsername());
-		        System.out.println(user.getEmail());
-		        System.out.println(user.getPassword());
-
-		        return "thank";
-		    }
-
+			public String register(Model model, @ModelAttribute("user") User user) {
+					
+				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+				String encodedPassword = passwordEncoder.encode(user.getPassword()) ;
+				user.setPassword(encodedPassword);
+				
+				userService.saveUser(user);
+					
+				return "thank";
+		}
 	}
 }

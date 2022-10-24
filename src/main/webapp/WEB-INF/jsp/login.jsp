@@ -37,25 +37,38 @@
 
     <!--main-->
     <main>
-        <div class="card mt-5" style="width: 20rem; margin: auto;">
-            <div class="card-body text-center">
-                <form class="mb-4">
-                    <h1 class="mb-4">Login</h1>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1" class="form-label mt-4">Email Address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email">
+        <form class="mt-5" action="/login" method="post">
+            <input type="hidden" name="${_csrf.parameterName}"
+                            value="${_csrf.token}" />
+                            
+            <div class="card" style="width: 20rem; margin: auto;">
+                <div class="card-body text-center">
+                    <h1 class="mb-4">Sign in</h1>
+                    <div class="form-group mt-2">
+                        <label for="email" class="visually-hidden">email</label>
+                        <input type="email" name="email" class="form-control" placeholder="Email" required autofocus>
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1" class="form-label mt-4">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <div class="form-group mt-2">
+                        <label for="password" class="visually-hidden">password</label>
+                        <input type="password" name="password" class="form-control" placeholder="Password">
                     </div>
-                    <br>
+                    <div class="form-group mt-3 mb-4">
+                        <label>
+                            <input type="checkbox" id="remember-me"> Remember me
+                        </lael>
+                    </div>
                     <div class="form-group d-grid gap-2">
-                        <button class="btn btn-lg btn-primary">Login</button>
+                        <button type="submit" class="btn btn-lg btn-primary"> Sign in</button>
                     </div>
-                </form>
+                    
+                    <c:if test="${error_string != null}">
+                        <div class="alert alert-danger mt-3">
+                            ${error_string}
+                        </div>
+                    </c:if>
+                </div>
             </div>
-        </div>
+        </form>
 
         <br>
         <br>
