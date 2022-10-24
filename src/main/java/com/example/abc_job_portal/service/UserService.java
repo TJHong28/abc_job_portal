@@ -35,4 +35,16 @@ public class UserService {
     public List<User> retrieveAllUserProfile() {
         return userRepository.findAll();
     }
+    
+    public User getUserByUsername(String username) {
+        return userRepository.findUserByUsername(username);
+    }
+
+    public User getUserById(Integer id) {
+        return userRepository.findById(id).get();
+    }
+    
+    public List<User> search(String keyword) {
+		return userRepository.search(keyword);
+	}
 }

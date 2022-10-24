@@ -45,6 +45,7 @@ public class SecurityConfig {
 				.antMatchers(HttpMethod.GET, "/login").permitAll()
 				.antMatchers(HttpMethod.GET, "/signup").permitAll()
 				.antMatchers(HttpMethod.POST, "/process_signup").permitAll()
+				.antMatchers(HttpMethod.GET, "/profile").permitAll()
                                 .antMatchers(HttpMethod.POST, "/dashboard").permitAll()
 				.anyRequest().authenticated()
 				.and()
@@ -58,6 +59,7 @@ public class SecurityConfig {
 			.logout()
 				.invalidateHttpSession(true)
 				.permitAll();
+		
 		
 		return http.build();
 	}

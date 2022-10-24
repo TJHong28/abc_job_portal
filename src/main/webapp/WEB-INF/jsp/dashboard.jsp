@@ -27,16 +27,32 @@
                             <span class="visually-hidden">(current)</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">Dashboard</a>
+                      </li>
                 </ul>
-                <div class="col-12-medium">
-                    <button type="button" class="btn btn-outline-dark me-2" style="border: none;">
-                        @<c:out value="${pageContext.request.remoteUser}" />
-                    </button>
-                    <form action="/logout" method="post">
-                        <input type="hidden" name="${_csrf.parameterName}"
-                                    value="${_csrf.token}" />
-                            <button type="submit" class="btn btn-danger">Logout</button>
-                    </form>
+                    <section>
+                        <div class="container mt-3">
+                                <c:url var="search_url" value="/dashboard" />
+                                <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+                                <form:form role="search" action="${search_url}" method="post">
+                                    <div class="input-group">
+                                            <input class="form-control" name="keyword" type="search" placeholder="Search" aria-label="Search">
+                                            <button class="btn btn-success me-2" type="submit">Search</button>
+                                    </div>
+                                </form:form>
+                        </div>
+                    </section>
+                    <a class="btn btn-secondary my-2 my-sm-0" href="/profile?id=${person.id}">@<c:out value="${pageContext.request.remoteUser}" /></a>
+                      <form action="/logout" method="post">
+                          <input type="hidden" name="${_csrf.parameterName}"
+                                      value="${_csrf.token}" />
+                              <button type="submit" class="btn btn-danger">Logout</button>
+                        </form> 
+                    </div>
+                  </nav>
+                </ul>
+            </div>
                 </div>
             </div>
         </div>
@@ -44,7 +60,6 @@
 
     <!--main-->
     <main>
-        <div class="grid-container">
             <table class="table card-body text-center">
                 <thead>
                   <tr>
@@ -68,7 +83,6 @@
                 </tbody>
               </table>
             </div>
-            </section>
         
 
             <br>
