@@ -43,17 +43,16 @@
             
                 <div class="card" style="width: 20rem; margin: auto;">
                     <div class="card-body text-center">
-                        <span class="navbar-brand mt-1 h1">Linked<span class="text-primary">Me</span>In</span>
                         <h4 class="mb-4">Reset Password</h4>
                         <p modelattribute="email">Your email (${email}) is verified. Please enter your new password.<p>
                         <input type="hidden" name="email" value="${email}">
                         <div class="form-group mt-2 mb-2">
-                            <label for="password" class="visually-hidden">password</label>
+                            <label for="password" class="visually-hidden">Password</label>
                             <input type="password" name="password" id="password" class="form-control" placeholder="password" required autofocus>
                         </div>
                         <div class="form-group mb-4">
                             <label for="cpassword" class="visually-hidden">confirmed password</label>
-                            <input type="password" name="cpassword" id="cpassword" class="form-control" placeholder="confirm password" required autofocus>
+                            <input type="password" name="cpassword" id="cpassword" class="form-control" placeholder="Confirm Password" required autofocus>
                         </div>
                         
                         <div class="form-group d-grid gap-2">
