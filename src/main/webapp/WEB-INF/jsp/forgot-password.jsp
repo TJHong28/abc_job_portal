@@ -37,14 +37,33 @@
 
     <!--main-->
     <main>
-        
-    <div class="d-flex align-items-center justify-content-center vh-100">
-        <div class="text-center">
-            <p class="fs-3">Thank you for register with us.</p>
-            <p class="lead">Please login using our sign in page. You will be re-direct to sign page in <span id="count">5</span></p>
-            <p><a href="/stores" class="btn btn-primary">Sign In</a></p>
-        </div>
-    </div>
+        <form class="mt-5" action="/forgot-password" method="post">
+            <input type="hidden" name="${_csrf.parameterName}"
+                                value="${_csrf.token}" />
+            
+                <div class="card" style="width: 20rem; margin: auto;">
+                    <div class="card-body text-center">
+                        <h4 class="mb-4">Forgot Password</h4>
+                        <p>Please enter your registered email.<p>
+                        <div class="form-group mt-2 mb-4">
+                            <label for="email" class="visually-hidden">email</label>
+                            <input type="email" name="email" id="email" class="form-control" placeholder="Email" required autofocus>
+                        </div>
+                        
+                        <div class="form-group d-grid gap-2">
+                            <button type="submit" class="btn btn-primary w-100"> Send</button>
+                            
+                            <c:if test="${error_success != null}">
+                            <div class="alert alert-success" role="alert">
+                                  ${error_success}
+                            </div>
+                            </c:if>
+                            <c:if test="${error_warning != null}">
+                            <div class="alert alert-warning" role="alert">
+                                  ${error_warning}
+                            </div>
+                            </c:if>
+                        </div>
 
         <br>
         <br>
@@ -62,15 +81,5 @@
 
     <!--script-->
     <script src="assets/js/bootstrap.min.js"></script>
-    <script>
-    	let counter = +document.getElementById('count').innerText;
-    	let count = counter - 1;
-    	
-    	setInterval(() => {
-         document.getElementById('count').textContent = count;
-    		count--;
-    		if(count < 1) location.replace('http://localhost:8080/');
-    	}, 1000);
-    </script>
 </body>
 </html>

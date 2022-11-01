@@ -52,37 +52,40 @@
                     </div>
                   </nav>
                 </ul>
-            </div>
-                </div>
-            </div>
-        </div>
     </nav>
 
     <!--main-->
     <main>
-            <table class="table card-body text-center">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Password</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <c:if test="${not empty users}">
-                  <c:forEach var="user" items="${users}">
-                  <tr>
-                    <th scope="row">${user.id}</th>
-                    <td>${user.username}</td>
-                    <td>${user.email}</td>
-                    <td>${user.password}</td>
-                  </tr>
-                  </c:forEach>
-                  </c:if>
-                </tbody>
-              </table>
-            </div>
+      <table class="table card-body text-center">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Company</th>
+            <th scope="col">City</th>
+            <th scope="col">Country</th>
+          </tr>
+        </thead>
+        <tbody>
+          <c:if test="${not empty users}">
+          <c:forEach var="user" items="${users}">
+          <tr>
+            <th scope="row">${user.id}</th>
+            <td>${user.username}</td>
+            <td>${user.email}</td>
+            <td>${user.firstname}</td>
+            <td>${user.lastname}</td>
+            <td>${user.company}</td>
+            <td>${user.city}</td>
+            <td>${user.country}</td>
+          </tr>
+          </c:forEach>
+          </c:if>
+        </tbody>
+      </table>
         
 
             <br>

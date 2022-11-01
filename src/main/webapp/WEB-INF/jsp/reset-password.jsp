@@ -37,33 +37,37 @@
 
     <!--main-->
     <main>
-        <form class="mt-5" action="/login" method="post">
+        <form class="mt-5" action="/reset-password" method="post">
             <input type="hidden" name="${_csrf.parameterName}"
-                            value="${_csrf.token}" />
+                                value="${_csrf.token}" />
+            
+                <div class="card" style="width: 20rem; margin: auto;">
+                    <div class="card-body text-center">
+                        <span class="navbar-brand mt-1 h1">Linked<span class="text-primary">Me</span>In</span>
+                        <h4 class="mb-4">Reset Password</h4>
+                        <p modelattribute="email">Your email (${email}) is verified. Please enter your new password.<p>
+                        <input type="hidden" name="email" value="${email}">
+                        <div class="form-group mt-2 mb-2">
+                            <label for="password" class="visually-hidden">password</label>
+                            <input type="password" name="password" id="password" class="form-control" placeholder="password" required autofocus>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="cpassword" class="visually-hidden">confirmed password</label>
+                            <input type="password" name="cpassword" id="cpassword" class="form-control" placeholder="confirm password" required autofocus>
+                        </div>
+                        
+                        <div class="form-group d-grid gap-2">
+                            <button type="submit" class="btn btn-primary w-100"> Send</button>
                             
-            <div class="card" style="width: 20rem; margin: auto;">
-                <div class="card-body text-center">
-                    <h1 class="mb-4">Sign in</h1>
-                    <div class="form-group mt-2">
-                        <label for="email" class="visually-hidden">email</label>
-                        <input type="email" name="email" class="form-control" placeholder="Email" required autofocus>
-                    </div>
-                    <div class="form-group mt-2">
-                        <label for="password" class="visually-hidden">password</label>
-                        <input type="password" name="password" class="form-control" placeholder="Password">
-                    </div>
-                    <div class="form-group mt-3 mb-4">
-                        <label>
-                            <input type="checkbox" id="remember-me"> Remember me
-                        </lael>
-                    </div>
-                    <div class="form-group d-grid gap-2">
-                        <button type="submit" class="btn btn-lg btn-primary"> Sign in</button>
-                        <a href="/forgot-password" class="text-primary">Forgot your password?</a>
+                            <c:if test="${error_warning != null}">
+                            <div class="alert alert-warning" role="alert">
+                                  ${error_warning}
+                            </div>
+                            </c:if>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
 
         <br>
         <br>

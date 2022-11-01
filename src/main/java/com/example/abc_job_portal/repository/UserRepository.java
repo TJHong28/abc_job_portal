@@ -11,13 +11,20 @@ import com.example.abc_job_portal.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
+	
     @Query("SELECT u FROM User u where u.email = :email")
     public User findUserByEmail(String email);
 
 	public User getUserByEmail(String username);
+	
+	@Query("SELECT u FROM User u WHERE u.verificationCode = ?1")
+    public User findByVerificationCode(String code);
 
 	@Query("SELECT u FROM User u WHERE u.username = :username")
 	public User findUserByUsername(String username);
+	
+	@Query("SELECT u FROM User u WHERE u.resetPasswordToken = ?1")
+	public User findUserByResetPasswordToken(String token);
 	
 	@Query(value = "SELECT s FROM User s WHERE s.username LIKE '%' || :keyword || '%'"
 			+ " OR s.username LIKE '%' || :keyword || '%'"

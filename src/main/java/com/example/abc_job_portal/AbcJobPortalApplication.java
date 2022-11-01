@@ -1,7 +1,9 @@
 package com.example.abc_job_portal;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -65,43 +67,7 @@ public class AbcJobPortalApplication extends SpringBootServletInitializer {
 				User loggedInUser = userService.getUserByUsername(username);
 				model.addAttribute("person", loggedInUser);
 				
-				
 				return "dashboard";
-			}
-			
-			@PostMapping("/process_signup")
-			public String register(Model model, @ModelAttribute("user") User user) {
-					
-				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-				String encodedPassword = passwordEncoder.encode(user.getPassword()) ;
-				user.setPassword(encodedPassword);
-				
-				userService.saveUser(user);
-					
-				return "thank";
-		
-			}
-			//get profile page
-			@GetMapping("/profile")
-			public String getProfilePage(Model model, @RequestParam("id") Integer user_id) {
-				User user = userService.getUserById(user_id);
-				model.addAttribute("user", user);
-				return "profile";
-			}
-			
-			@PostMapping("/update-profile")
-		    public String updateUserProfile(Model model, @ModelAttribute("user") User tmp, @RequestParam("id") Integer user_id) {
-		        User user = userService.getUserById(user_id);
-
-		        user.setFirstname(tmp.getFirstname());
-		        user.setLastname(tmp.getLastname());
-		        user.setCompany(tmp.getCompany());
-		        user.setCity(tmp.getCity());
-		        user.setCountry(tmp.getCountry());
-
-		        userService.saveUser(user);
-
-		        return "redirect:dashboard";
 			}
 			
 			@PostMapping("/dashboard")
@@ -112,6 +78,127 @@ public class AbcJobPortalApplication extends SpringBootServletInitializer {
 				
 				model.addAttribute("count", count);
 				model.addAttribute("users", users);
+				//return "dashboard";
+			}
+			
+			//Update Profile
+			@PostMapping("/update-profile")
+			public String updateUserProfile(Model model, @ModelAttribute("user") User tmp, @RequestParam("id") Integer user_id) {
+				User user = userService.getUserById(user_id);
+				
+				user.setUsername(tmp.getUsername());
+				user.setEmail(tmp.getEmail());
+				user.setFirstname(tmp.getFirstname());
+				user.setLastname(tmp.getLastname());
+				user.setCompany(tmp.getCompany());
+				user.setCity(tmp.getCity());
+				user.setCountry(tmp.getCountry());
+
+		        userService.saveUser(user);
+		        
+		        return "redirect:dashboard";
+			}
+				
+
+			@GetMapping("/profile")
+			public String getprofilePage(Model model, @RequestParam("id") Integer user_id) {
+				User user = userService.getUserById(user_id);
+				model.addAttribute("user", user);
+				return "profile";
+			}
+			
+			
+			// register new user
+			@PostMapping("/process_signup")
+			public String registerNewUser(User user, HttpServletRequest request)
+					throws UnsupportedEncodingException, MessagingException {
+				userService.register(user, getSiteURL(request));
+				return "thank";
+			}
+			
+			private String getSiteURL(HttpServletRequest request) {
+		        String siteURL = request.getRequestURL().toString();
+		        return siteURL.replace(request.getServletPath(), "");
+		    }
+			
+			@GetMapping("/verify")
+			public String verifyUser(@Param("code") String code) {
+			    if (userService.verify(code)) {
+			        return "verify_success";
+			    } else {
+			        return "verify-fail";
+			    }
+			}
+			
+			@GetMapping("/forgot-password")
+			public String forgotPasswordPage() {
+				// show forgot password page, ask user to 
+				// enter verified registered email
+				return "forgot-password";
+			}
+			
+			@PostMapping("/forgot-password")
+			public String processForgotPassword(Model model, HttpServletRequest request) 
+					throws UnsupportedEncodingException, MessagingException {
+				
+				String email = request.getParameter("email");
+				
+				if(userService.getUserByEmail(email) != null) {
+					
+					userService.generateResetPasswordToken(email, getSiteURL(request));
+					model.addAttribute("error_success", "We have sent you a reset password link to your email. Please check.");
+				} else {
+					model.addAttribute("error_warning", "Opss!! user not found!");
+				}
+				
+				return "forgot-password";
+			}
+			
+			@GetMapping("/verify-reset-password")
+			public String verifyResetPasswordToken(@Param("code") String code) {
+				User user = userService.getUserByResetPasswordToken(code);
+				// if user exists, means verified user
+			    if (user != null) {
+			    	userService.resetPasswordToken(code);
+			    	String url = "redirect:reset-password?email=" + user.getEmail();
+			        return url;
+			    } else {
+			        return "redirect:verify-fail";
+			    }
+			}
+			
+			@GetMapping("/verify-fail")
+			public String verifyFailPage() {
+				return "verify-fail";
+			}
+			
+			@GetMapping("/reset-password")
+			public String resetPasswordPage(Model model,
+					@Param("email") String email) {
+				model.addAttribute("email", email);
+				return "reset-password";
+			}
+			
+			@PostMapping("/reset-password")
+			public String processResetPassword(Model model, HttpServletRequest request) {
+				
+				String password = request.getParameter("password");
+				String cpassword = request.getParameter("cpassword");
+				String email = request.getParameter("email");
+				
+				if(password.equals(cpassword)) { // true, reset password
+					System.out.println("email = " + email); // debugging purposes
+					userService.updatePassword(email, cpassword);
+					
+					return "redirect:login";
+					
+				} else { // false
+					model.addAttribute("error_warning", 
+							"hey!! password not match!! Try again.");
+					return "reset-password";
+				}
+				
+				
 			}
 	}
 }

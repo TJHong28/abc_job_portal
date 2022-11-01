@@ -94,11 +94,6 @@
                   <input class="form-control" name="country" id="country" value="${user.country}" aria-label="country" required />
                 </div>
                 
-                <div class="mb-3">
-                  <label class="form-label" for="customFile">Profile photo</label>
-                  <input type="file" name="img" class="form-control" id="customFile" value="" />
-                </div>
-                
                 <div class="py-5">
                   <a href="/dashboard" class="btn btn-danger">Cancel</a>
                   <button type="submit" class="btn btn-success">Update</button>
