@@ -64,6 +64,7 @@
                             </div>
                             </c:if>
                         </div>
+                    </form>
 
         <br>
         <br>

@@ -48,7 +48,7 @@
                         <input type="hidden" name="email" value="${email}">
                         <div class="form-group mt-2 mb-2">
                             <label for="password" class="visually-hidden">Password</label>
-                            <input type="password" name="password" id="password" class="form-control" placeholder="password" required autofocus>
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Password" required autofocus>
                         </div>
                         <div class="form-group mb-4">
                             <label for="cpassword" class="visually-hidden">confirmed password</label>
