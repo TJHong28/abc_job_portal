@@ -72,8 +72,6 @@
         <br>
         <br>
 
-        <!--footer-->
-        <div class="footer"><h6> © 2022 All rights reserved by ABC Job Portal</h6></div>
 
 
     </main>
