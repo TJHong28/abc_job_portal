@@ -71,15 +71,17 @@ public class AbcJobPortalApplication extends SpringBootServletInitializer {
 			}
 			
 			@PostMapping("/dashboard")
-			public void search(Model model, HttpServletRequest request) {
-				String keyword = request.getParameter("keyword");
-				List<User> users = userService.search(keyword);
-				Integer count = users.size();
-				
-				model.addAttribute("count", count);
-				model.addAttribute("users", users);
-				//return "dashboard";
-			}
+		    public void search(Model model, HttpServletRequest request, @AuthenticationPrincipal CustomUserDetails username) {
+		        String keyword = request.getParameter("keyword");
+		        List<User> users = userService.search(keyword);
+		        Integer count = users.size();
+
+		        model.addAttribute("count", count);
+		        model.addAttribute("users", users);
+		        User loggedInUser = userService.getUserByUsername(username.getUsername());
+		        model.addAttribute("person", loggedInUser);
+		        //return "dashboard";
+		    }
 			
 			//Update Profile
 			@PostMapping("/update-profile")
