@@ -30,13 +30,19 @@ public class UserRepositoryTest {
 	@Autowired
 	private TestEntityManager entityManager;
 	
-	@Test
+	@Test //Create new user
 	public void testCreateNewUser() {
-		User user = new User();
-		user.setUsername("test-admin");
-		user.setEmail("admin@example.com");
-		user.setPassword("password");
-		
+		User user = new User(); //This will create a new user
+		user.setUsername("junit-test"); //Insert data in column Username to junit-test
+		user.setEmail("junit@example.com"); //Insert data in column Email to junit@example.com
+		user.setPassword("password"); //Insert data in column Password to password
+		user.setFirstname("ExampleFirst"); //Insert data in column Firstname to ExampleFirst
+		user.setLastname("ExampeLast"); //Insert data in column Lastname to ExampleLast
+		user.setCompany("ExampleCompany"); //Insert data in column Company to 
+		user.setCity("ExampleCity"); //Insert data in column City to ExampleCity
+		user.setCountry("ExampleCountry"); //Insert data in column Country to ExampleCountry
+		user.setEnabled(true); //Account will be verified
+
 		User savedUser = entityManager.persistAndFlush(user); 
 		
 		assertThat(savedUser.getEmail()).isEqualTo(user.getEmail());
@@ -44,8 +50,8 @@ public class UserRepositoryTest {
 	
 	@Test
 	public void testNumberRegisteredUsers() {
-		long count = userRepo.count();
-		System.err.println("size: " + count);
+		long count = userRepo.count(); //count the registered users
+		System.err.println("size: " + count); //To print out number of registered user (size: RegisteredUsers)
 		assertThat(count).isEqualTo(userRepo.findAll().size());
 	}
 	
@@ -59,7 +65,7 @@ public class UserRepositoryTest {
 	
 	@Test
 	public void testFindUserByEmail() {
-		String email = "tjhongeveri@gmail.com";
+		String email = "junit@example.com"; //Email to find
 		User user = userRepo.findUserByEmail(email);
 		
 		assertThat(user.getEmail()).isEqualTo(email);
@@ -67,7 +73,7 @@ public class UserRepositoryTest {
 	
 	@Test
 	public void testFindUserByUsername() {
-		String username = "example";
+		String username = "junit-test"; //username to find
 		User user = userRepo.findUserByUsername(username);
 		
 		assertThat(user.getUsername()).isEqualTo(username);
@@ -77,7 +83,7 @@ public class UserRepositoryTest {
 	public void testFindUserByVerificationCode() {
 		String verficationCode = RandomString.make(64);
 		
-		User user = userRepo.findUserByUsername("test-admin");
+		User user = userRepo.findUserByUsername("junit-test");
 		user.setVerificationCode(verficationCode);
 		
 		User existedUser = userRepo.findByVerificationCode(verficationCode);
@@ -89,7 +95,7 @@ public class UserRepositoryTest {
 	public void testFindUserByResetPasswordToken() {
 		String resetPasswordToken = RandomString.make(30);
 		
-		User user = userRepo.findUserByUsername("test-admin");
+		User user = userRepo.findUserByUsername("junit-test");
 		user.setResetPasswordToken(resetPasswordToken);
 		
 		User existedUser = userRepo.save(user);
@@ -100,10 +106,10 @@ public class UserRepositoryTest {
 	
 	@Test
 	public void testDeleteUserById() {
-		User user = userRepo.findUserByUsername("test-admin");		
+		User user = userRepo.findUserByUsername("junit-test");		
 		userRepo.deleteById(user.getId()); // delete the user by id
 		
-		User deletedUser = userRepo.findUserByUsername("test-admin"); // test retrieve it back
+		User deletedUser = userRepo.findUserByUsername("junit-test"); // test retrieve it back
 		
 		assertThat(deletedUser).isEqualTo(null);
 	} 
