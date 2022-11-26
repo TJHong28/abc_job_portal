@@ -42,19 +42,27 @@
             <div class="header"><h1>Welcome To ABC Job Portal</h1></div>
             <div class="main">
                 <img src="images/LETS-GET-STARTED-arrows.png" class="center">
-                <div class="button-middle">
+                <div class="card mt-5" style="width: 10rem; margin: auto;">
                     <a class="btn btn-lg btn-primary" href="/signup">Let's Get Started</a>
                 </div>
             </div>
 
-            <br>
-            <br>
-            <br>
 
-            <!--footer-->
-            <div class="footer"><h6> © 2022 All rights reserved by ABC Job Portal</h6></div>
-        </div>
     </main>
+
+    <!--footer-->
+		<footer class="py-2 bg-light text-muted">
+			<div class="container">
+			  <div class="row">
+				<div class="col-8 d-flex justify-content-start">
+					<span>&copy; 2022 All rights reserved by ABC Job Portal
+					  </span>
+				</div>
+	  
+			   
+			  </div>
+			</div>
+		</footer>
 
 
 

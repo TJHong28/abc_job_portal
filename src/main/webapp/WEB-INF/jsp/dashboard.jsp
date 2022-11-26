@@ -30,6 +30,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/dashboard">Dashboard</a>
                       </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/jobs">Jobs</a>
+                      </li>
                 </ul>
                     <section>
                         <div class="container mt-3">
@@ -88,14 +91,22 @@
       </table>
         
 
-            <br>
-            <br>
-            <br>
 
-            <!--footer-->
-            <div class="footer"><h6> © 2022 All rights reserved by ABC Job Portal</h6></div>
-        </div>
+        
     </main>
+
+    <footer class="py-5 bg-light text-muted">
+			<div class="container">
+			  <div class="row">
+				<div class="col-8 d-flex justify-content-start">
+					<span>&copy; 2022 All rights reserved by ABC Job Portal
+					  </span>
+				</div>
+	  
+			   
+			  </div>
+			</div>
+		</footer>
 
 
 

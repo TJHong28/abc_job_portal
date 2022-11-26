@@ -75,6 +75,15 @@
 
 
     </main>
+    
+    <!--footer-->
+		<footer class="py-5 bg-light text-muted">
+			<div class="container">
+			  <div class="row">
+				<div class="col-8 d-flex justify-content-start">
+					<span>&copy; 2022 All rights reserved by ABC Job Portal
+					  </span>
+				</div>
 
 
 
