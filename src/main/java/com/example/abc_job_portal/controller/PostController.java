@@ -20,7 +20,6 @@ import com.example.abc_job_portal.entity.User;
 import com.example.abc_job_portal.service.UserService;
 import com.example.abc_job_portal.security.CustomUserDetails;
 import com.example.abc_job_portal.service.PostService;
-import com.example.abc_job_portal.controller.CommonController;
 
 @Controller
 public class PostController {
